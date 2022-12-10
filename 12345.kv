@@ -1,0 +1,93 @@
+#:kivy 1.0
+
+<MyLayout>
+  FloatLayout:
+    size: 600, 200
+
+    canvas.before:
+      Color:
+        rgba: 255/255, 250/255, 250/255, 0.9
+      Rectangle:
+        pos: self.pos
+        size: self.size
+    
+    Label:
+      color: (0, 0, 0, 1)
+      text: "PATH"
+      font_size: 18.5
+      size_hint: (None, None)
+      pos: 12, 160
+      size: 50, 20
+      
+    TextInput:
+      id: input_path
+      multiline: False
+      background_color: (169/255, 169/255, 169/255, 1)
+      font_size: 11.5
+      pos: 80, 160
+      size_hint: (None, None)
+      size: 400,25
+
+    PathButton:
+      text:"参照"
+      font_size: 16
+      size_hint: (None, None)
+      size: 50, 27
+      pos: 510, 160
+      color: (0, 1, 1, 1)
+      background_color: (175/255, 238/255, 238/255, 1)
+      on_press: input_path.text = self.get_path()
+
+
+    MySpinner:
+      id: item_list
+      size_hint: (None, None)
+      size: 70, 30
+      pos: 10, 120
+      text: '選択...'
+      values: 'PNG', 'JPEG', 'aaa', 'Custom'
+
+
+    Label:
+      text: "出力ファイル名"
+      font_size: 19
+      size_hint: (None, None)
+      size: 140, 30
+      pos: 90, 120
+      color: (0, 0, 0, 1)
+
+    TextInput:
+      multiline: False
+      font_size: 12
+      text: '※拡張子不要'
+      size_hint: (None, None)
+      size: 300, 25
+      pos: 240, 120
+
+    Button:
+      pos: 350, 20
+      size_hint: (None, None)
+      size: 30, 30
+      text:"botann"
+      on_press: root.test_but()
+
+    Label:
+      id: aaa
+      size_hint: (None, None)
+      size: 30, 60
+      text: ""
+      pos: 200, 50
+      color: (0, 0, 0, 1)
+
+    Button:
+      text: '実行'
+      font_size: 22
+      size_hint: (None, None)
+      size: 70, 70
+      pos: 500, 20
+      on_press: root.run_button()
+
+
+<SpinnerButton>:
+  size_hint: (None, None)
+  size: 60, 25
