@@ -12,6 +12,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.spinner import Spinner
 import subprocess
 import threading
+import img2pdf
+from pdf2image import convert_from_path
 
 
 
@@ -37,19 +39,23 @@ class MyLayout(Widget):
         subprocess.run(cmd)
 
     def run_button(self):
-        print('pushed')
-        out_name = str(self.ids.out_name.text)
-        if out_name == '':
-            out_name = 'output'
-        path = self.ids.input_path.text
-        path = path[2:]
-        path = path[:-3]
-        out_extension = '.'
         out_extension = self.ids.item_list.text
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
-        print(path)
+        
+        path = self.ids.input_path.text
+        path = path[2:]
+        path = path[:-3]
+
+        out_name = str(self.ids.out_name.text)
+        if out_name == '':
+            out_name = 'output'
+
+        if out_extension == '.pdf':
+            with open("output.pdf","wb") as f:
+                f.write(img2pdf.convert(['input1.jpeg']))
+
         cmd = f'ffmpeg.exe -i \"{path}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
         th1.start()
@@ -57,7 +63,6 @@ class MyLayout(Widget):
     def on_touch_d(self, touch):
         print(touch.pos)
         if self.ids.init_ms.collide_point(*touch.pos):
-            print('aaaaa')
             self.ids.init_ms.text = ''
 
     def popup_open(self):
