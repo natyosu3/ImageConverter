@@ -6,7 +6,7 @@
 
     canvas.before:
       Color:
-        rgba: 255/255, 250/255, 250/255, 0.9
+        rgba: 255/255, 250/255, 250/255, 1
       Rectangle:
         pos: self.pos
         size: self.size
@@ -42,10 +42,10 @@
     MySpinner:
       id: item_list
       size_hint: (None, None)
-      size: 70, 30
-      pos: 10, 120
+      size: 60, 25
+      pos: 20, 120
       text: '選択...'
-      values: 'PNG', 'JPEG', 'aaa', 'Custom'
+      values: '.png', '.jpeg', '.pdf'
 
 
     Label:
@@ -79,21 +79,6 @@
       on_touch_down: root.on_touch_d(args[1])
 
     Button:
-      pos: 350, 20
-      size_hint: (None, None)
-      size: 30, 30
-      text:"botann"
-      on_press: root.test_but()
-
-    Label:
-      id: aaa
-      size_hint: (None, None)
-      size: 30, 60
-      text: ""
-      pos: 200, 50
-      color: (0, 0, 0, 1)
-
-    Button:
       text: '実行'
       font_size: 22
       size_hint: (None, None)
@@ -105,3 +90,16 @@
 <SpinnerButton>:
   size_hint: (None, None)
   size: 60, 25
+
+
+<PopupMenu>
+  orientation: 'vertical'
+
+  Label:
+    text: '出力拡張子を選択してください'
+    center: root.center
+
+  BoxLayout:
+    Button:
+      text: 'Close'
+      on_release: root.popup_close()

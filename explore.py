@@ -4,6 +4,8 @@ from kivy.app import App
 from kivy.base import Builder
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
 import japanize_kivy
 from kivy.config import Config
 from kivy.properties import ObjectProperty
@@ -43,16 +45,14 @@ class MyLayout(Widget):
         path = path[2:]
         path = path[:-3]
         out_extension = '.'
-        if self.ids.item_list.text == 'PNG':
-            out_extension = '.png'
+        out_extension = self.ids.item_list.text
+        if out_extension == '選択...' :
+            self.popup_open()
+            return print('e')
         print(path)
         cmd = f'ffmpeg.exe -i \"{path}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
         th1.start()
-
-    def test_but(self):
-        self.ids.aaa.text = self.ids.item_list.text
-        print(self.ids.aaa.text)
 
     def on_touch_d(self, touch):
         print(touch.pos)
@@ -60,12 +60,20 @@ class MyLayout(Widget):
             print('aaaaa')
             self.ids.init_ms.text = ''
 
-    def print_it(self):
-        print('aaaaa')
+    def popup_open(self):
+        content = PopupMenu(popup_close=self.popup_close)
+        self.popup = Popup(title='RUN ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
 
+    def popup_close(self):
+        self.popup.dismiss()
 
 class SpinnerButton(Button):
     pass
+
+
+class PopupMenu(BoxLayout):
+    popup_close = ObjectProperty(None)
 
 
 class MySpinner(Spinner):
