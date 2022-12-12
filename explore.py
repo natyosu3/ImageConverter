@@ -13,7 +13,8 @@ from kivy.uix.spinner import Spinner
 import subprocess
 import threading
 import img2pdf
-from pdf2image import convert_from_path
+import fitz
+import os
 
 
 
@@ -47,14 +48,26 @@ class MyLayout(Widget):
         path = self.ids.input_path.text
         path = path[2:]
         path = path[:-3]
+        fullpath=path
+        path = os.path.splitext(os.path.basename(path))
+        filename = path[0]
+        input_ext = path[1]
 
         out_name = str(self.ids.out_name.text)
         if out_name == '':
-            out_name = 'output'
+            out_name = filename
 
-        if out_extension == '.pdf':
-            with open("output.pdf","wb") as f:
-                f.write(img2pdf.convert(['input1.jpeg']))
+        if out_extension == '.pdf': #出力がPDFの場合
+            with open(f"{out_name}.pdf","wb") as f:
+                f.write(img2pdf.convert([fullpath]))
+
+        if input_ext == '.pdf': #入力がPDFの場合
+            print(fullpath)
+            pages = fitz.open(fullpath)
+            for page in pages:
+                pix = page.get_pixmap()
+                pix.save(f"{out_name}_%i.png" % (page.number+1))
+            return
 
         cmd = f'ffmpeg.exe -i \"{path}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
