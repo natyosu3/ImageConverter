@@ -13,10 +13,10 @@
     
     Label:
       color: (0, 0, 0, 1)
-      text: "PATH"
-      font_size: 18.5
+      text: "入力"
+      font_size: 16
       size_hint: (None, None)
-      pos: 12, 160
+      pos: 15, 162.5
       size: 50, 20
       
     TextInput:
@@ -49,20 +49,34 @@
 
 
     Label:
-      text: "出力ファイル名"
-      font_size: 19
+      text: "ファイル名"
+      font_size: 16
       size_hint: (None, None)
       size: 140, 30
-      pos: 90, 120
+      pos: 70, 120
       color: (0, 0, 0, 1)
 
     TextInput:
+      id: out_name
       multiline: False
       font_size: 12
-      text: '※拡張子不要'
       size_hint: (None, None)
       size: 300, 25
-      pos: 240, 120
+      pos: 200, 120
+
+    Label:
+      id: init_ms
+      text_size: self.size
+      halign: 'left'
+      valign: 'middle'
+      text: (" ※拡張子不要 (複数ファイル時-不可)")
+      font_size: 12
+      size_hint: (None, None)
+      size: (300, 25)
+      pos: (200, 120)
+      color: (0, 0, 0, 0.8)
+      background_color: (0, 1, 0, 0.8)
+      on_touch_down: root.on_touch_d(args[1])
 
     Button:
       pos: 350, 20

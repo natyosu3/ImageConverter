@@ -36,6 +36,9 @@ class MyLayout(Widget):
 
     def run_button(self):
         print('pushed')
+        out_name = str(self.ids.out_name.text)
+        if out_name == '':
+            out_name = 'output'
         path = self.ids.input_path.text
         path = path[2:]
         path = path[:-3]
@@ -43,13 +46,22 @@ class MyLayout(Widget):
         if self.ids.item_list.text == 'PNG':
             out_extension = '.png'
         print(path)
-        cmd = f'ffmpeg.exe -i \"{path}\" output{out_extension} -progress prog.txt'
+        cmd = f'ffmpeg.exe -i \"{path}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
         th1.start()
 
     def test_but(self):
         self.ids.aaa.text = self.ids.item_list.text
         print(self.ids.aaa.text)
+
+    def on_touch_d(self, touch):
+        print(touch.pos)
+        if self.ids.init_ms.collide_point(*touch.pos):
+            print('aaaaa')
+            self.ids.init_ms.text = ''
+
+    def print_it(self):
+        print('aaaaa')
 
 
 class SpinnerButton(Button):
