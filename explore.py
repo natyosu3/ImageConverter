@@ -17,7 +17,7 @@ import fitz
 import os
 
 
-
+os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 200)
 Config.set('graphics', 'resizable', 0)
@@ -54,12 +54,18 @@ class MyLayout(Widget):
         input_ext = path[1]
 
         out_name = str(self.ids.out_name.text)
+
+        if input_ext == out_extension:
+            print('e')
+            self.popup_open2()
+            return
         if out_name == '':
             out_name = filename
 
         if out_extension == '.pdf': #出力がPDFの場合
             with open(f"{out_name}.pdf","wb") as f:
                 f.write(img2pdf.convert([fullpath]))
+            return
 
         if input_ext == '.pdf': #入力がPDFの場合
             print(fullpath)
@@ -69,7 +75,7 @@ class MyLayout(Widget):
                 pix.save(f"{out_name}_%i.png" % (page.number+1))
             return
 
-        cmd = f'ffmpeg.exe -i \"{path}\" {out_name}{out_extension}'
+        cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
         th1.start()
 
@@ -83,6 +89,11 @@ class MyLayout(Widget):
         self.popup = Popup(title='RUN ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
 
+    def popup_open2(self):
+        content = PopupMenu2(popup_close=self.popup_close)
+        self.popup = Popup(title='EXT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
+
     def popup_close(self):
         self.popup.dismiss()
 
@@ -91,6 +102,9 @@ class SpinnerButton(Button):
 
 
 class PopupMenu(BoxLayout):
+    popup_close = ObjectProperty(None)
+
+class PopupMenu2(BoxLayout):
     popup_close = ObjectProperty(None)
 
 
