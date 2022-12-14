@@ -56,6 +56,20 @@
       size_hint: (None, None)
       size: 400,25
 
+    Label:
+      id: init_ms1
+      text_size: self.size
+      halign: 'left'
+      valign: 'middle'
+      text: (" ※未選択の場合exe直下に出力")
+      font_size: 12
+      size_hint: (None, None)
+      size: (280, 25)
+      pos: 80, 127
+      color: (0, 0, 0, 0.8)
+      background_color: (0, 1, 0, 0.8)
+      on_touch_down: root.on_touch_d(args[1])
+
     OutPathButton:
       text:"参照"
       font_size: 16
@@ -136,6 +150,18 @@
 
   Label:
     text: '入出力拡張子が同じです'
+    center: root.center
+
+  BoxLayout:
+    Button:
+      text: 'Close'
+      on_release: root.popup_close()
+
+<InputErrorPopupMenu>
+  orientation: 'vertical'
+
+  Label:
+    text: '入力ファイルがありません'
     center: root.center
 
   BoxLayout:

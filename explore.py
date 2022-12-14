@@ -46,6 +46,11 @@ class MyLayout(Widget):
         global input_paths
         out_extension = self.ids.item_list.text
         out_dir = self.ids.output_path.text
+
+        if self.ids.input_path.text == '':
+            self.InputErrorPopupMenu()
+            return print('e')
+
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
@@ -119,6 +124,8 @@ class MyLayout(Widget):
         print(touch.pos)
         if self.ids.init_ms.collide_point(*touch.pos):
             self.ids.init_ms.text = ''
+        if self.ids.init_ms1.collide_point(*touch.pos):
+            self.ids.init_ms1.text = ''
 
     def popup_open(self):
         content = PopupMenu(popup_close=self.popup_close)
@@ -128,6 +135,11 @@ class MyLayout(Widget):
     def popup_open2(self):
         content = PopupMenu2(popup_close=self.popup_close)
         self.popup = Popup(title='EXT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
+
+    def InputErrorPopupMenu(self):
+        content = InputErrorPopupMenu(popup_close=self.popup_close)
+        self.popup = Popup(title='INPUT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
 
     def popup_close(self):
@@ -141,6 +153,9 @@ class PopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
 class PopupMenu2(BoxLayout):
+    popup_close = ObjectProperty(None)
+
+class InputErrorPopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
 
