@@ -25,7 +25,7 @@ Config.set('graphics', 'resizable', 0)
 
 Builder.load_file("12345.kv")
 
-
+# ファイルパスリスト(global)
 input_paths=[]
 
 
@@ -50,39 +50,67 @@ class MyLayout(Widget):
             return print('e')
         
         fullpath = input_paths[0]
-        path = os.path.splitext(os.path.basename(input_paths))
+        path = os.path.splitext(os.path.basename(input_paths[0]))
         filename = path[0]
         input_ext = path[1]
 
         out_name = str(self.ids.out_name.text)
 
+        # (error)入出力拡張子が同じ場合
         if input_ext == out_extension:
             print('e')
             self.popup_open2()
             return
+
+        # 出力ファイル名が未入力の場合-空文字
         if out_name == '':
             out_name = filename
 
-        if out_extension == '.pdf': #出力がPDFの場合
-            with open(f"{out_name}.pdf","wb") as f:
-                f.write(img2pdf.convert([fullpath]))
-            return
-
-        if input_ext == '.pdf': #入力がPDFの場合
-            print(fullpath)
-            pages = fitz.open(fullpath)
-            for page in pages:
-                pix = page.get_pixmap()
-                pix.save(f"{out_name}_%i.png" % (page.number+1))
-            return
-
+        # 複数ファイルの場合
         if len(input_paths) != 1:
             for i in range(len(input_paths)):
-                cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
+                fullpath = input_paths[i]
+                path = os.path.splitext(os.path.basename(input_paths[i]))
+                filename = path[0]
+                input_ext = path[1]
 
-        cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
-        th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
-        th1.start()
+                # 出力がPDFの場合
+                if out_extension == '.pdf':
+                    with open(f"{filename}.pdf","wb") as f:
+                        f.write(img2pdf.convert([fullpath]))
+                
+                # 入力がPDFの場合
+                elif input_ext == '.pdf':
+                    print(fullpath)
+                    pages = fitz.open(fullpath)
+                    for page in pages:
+                        pix = page.get_pixmap()
+                        pix.save(f"{filename}_%i{out_extension}" % (page.number+1))
+                    
+                # その他
+                else:
+                    cmd = f'ffmpeg.exe -i \"{fullpath}\" {filename}{out_extension}'
+                    th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
+                    th1.start()
+
+        # 単一ファイルの場合
+        else:
+            if out_extension == '.pdf': #出力がPDFの場合
+                with open(f"{out_name}.pdf","wb") as f:
+                    f.write(img2pdf.convert([fullpath]))
+                return
+
+            elif input_ext == '.pdf': #入力がPDFの場合
+                print(fullpath)
+                pages = fitz.open(fullpath)
+                for page in pages:
+                    pix = page.get_pixmap()
+                    pix.save(f"{out_name}_%i.png" % (page.number+1))
+                return
+            else:
+                cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
+                th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
+                th1.start()
 
     def on_touch_d(self, touch):
         print(touch.pos)
@@ -120,6 +148,7 @@ class PathButton(Button):
     @staticmethod        
     def get_path():
         global input_paths
+
         root = tk.Tk()
         root.withdraw()
         pts = filedialog.askopenfilenames()
