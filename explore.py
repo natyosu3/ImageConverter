@@ -21,9 +21,12 @@ os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Config.set('graphics', 'width', 600)
 Config.set('graphics', 'height', 200)
 Config.set('graphics', 'resizable', 0)
-Config.write()
+#Config.write()
 
 Builder.load_file("12345.kv")
+
+
+input_paths=[]
 
 
 class MyLayout(Widget):
@@ -40,16 +43,14 @@ class MyLayout(Widget):
         subprocess.run(cmd)
 
     def run_button(self):
+        global input_paths
         out_extension = self.ids.item_list.text
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
         
-        path = self.ids.input_path.text
-        path = path[2:]
-        path = path[:-3]
-        fullpath=path
-        path = os.path.splitext(os.path.basename(path))
+        fullpath = input_paths[0]
+        path = os.path.splitext(os.path.basename(input_paths))
         filename = path[0]
         input_ext = path[1]
 
@@ -74,6 +75,10 @@ class MyLayout(Widget):
                 pix = page.get_pixmap()
                 pix.save(f"{out_name}_%i.png" % (page.number+1))
             return
+
+        if len(input_paths) != 1:
+            for i in range(len(input_paths)):
+                cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
 
         cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
         th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
@@ -114,9 +119,13 @@ class MySpinner(Spinner):
 class PathButton(Button):
     @staticmethod        
     def get_path():
+        global input_paths
         root = tk.Tk()
         root.withdraw()
-        return(str(filedialog.askopenfilenames()))
+        pts = filedialog.askopenfilenames()
+        for pt in pts:
+            input_paths.append(pt)
+        return str(pts)
 
 
 class MyApp(App):
