@@ -18,7 +18,7 @@ import os
 
 
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
-Config.set('graphics', 'width', 600)
+Config.set('graphics', 'width', 600)    
 Config.set('graphics', 'height', 200)
 Config.set('graphics', 'resizable', 0)
 #Config.write()

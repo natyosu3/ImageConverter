@@ -39,11 +39,39 @@
       on_press: input_path.text = self.get_path()
       on_press: root.ids.input_path.text = ''
 
+    Label:
+      color: (0, 0, 0, 1)
+      text: "出力"
+      font_size: 16
+      size_hint: (None, None)
+      size: 50, 20
+      pos: 15, 127
+
+    TextInput:
+      id: output_path
+      multiline: False
+      background_color: (169/255, 169/255, 169/255, 1)
+      font_size: 11.5
+      pos: 80, 127
+      size_hint: (None, None)
+      size: 400,25
+
+    PathButton:
+      text:"参照"
+      font_size: 16
+      size_hint: (None, None)
+      size: 50, 27
+      pos: 510, 127
+      color: (0, 1, 1, 1)
+      background_color: (175/255, 238/255, 238/255, 1)
+      on_press: input_path.text = self.get_path()
+      on_press: root.ids.input_path.text = ''
+
     MySpinner:
       id: item_list
       size_hint: (None, None)
       size: 60, 25
-      pos: 20, 120
+      pos: 20, 92.5
       text: '選択...'
       values: '.png', '.jpeg', '.pdf'
 
@@ -53,7 +81,7 @@
       font_size: 16
       size_hint: (None, None)
       size: 140, 30
-      pos: 70, 120
+      pos: 70, 92.5
       color: (0, 0, 0, 1)
 
     TextInput:
@@ -62,7 +90,7 @@
       font_size: 12
       size_hint: (None, None)
       size: 280, 25
-      pos: 200, 120
+      pos: 200, 92.5
 
     Label:
       id: init_ms
@@ -73,7 +101,7 @@
       font_size: 12
       size_hint: (None, None)
       size: (280, 25)
-      pos: (200, 120)
+      pos: 200, 92.5
       color: (0, 0, 0, 0.8)
       background_color: (0, 1, 0, 0.8)
       on_touch_down: root.on_touch_d(args[1])
