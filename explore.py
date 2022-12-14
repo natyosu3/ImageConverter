@@ -36,7 +36,6 @@ class MyLayout(Widget):
 
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
-        self.run_button() #始めの二度押し解消
 
     def convert(cmd):
         print(cmd)
