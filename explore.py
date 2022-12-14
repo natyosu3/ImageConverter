@@ -47,18 +47,18 @@ class MyLayout(Widget):
         out_extension = self.ids.item_list.text
         out_dir = self.ids.output_path.text
 
-        if self.ids.input_path.text == '':
-            self.InputErrorPopupMenu()
-            return print('e')
-
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
         
-        fullpath = input_paths[0]
-        path = os.path.splitext(os.path.basename(input_paths[0]))
-        filename = path[0]
-        input_ext = path[1]
+        try:
+            fullpath = input_paths[0]
+            path = os.path.splitext(os.path.basename(input_paths[0]))
+            filename = path[0]
+            input_ext = path[1]
+        except:
+            self.InputErrorPopupMenu()
+            return print('e')
 
         out_name = str(self.ids.out_name.text)
 
