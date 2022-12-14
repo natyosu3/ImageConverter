@@ -82,7 +82,7 @@ class MyLayout(Widget):
 
                 # 出力がPDFの場合
                 if out_extension == '.pdf':
-                    with open(f"{filename}.pdf","wb") as f:
+                    with open(f"{out_dir}/{filename}.pdf","wb") as f:
                         f.write(img2pdf.convert([fullpath]))
                 
                 # 入力がPDFの場合
@@ -91,7 +91,7 @@ class MyLayout(Widget):
                     pages = fitz.open(fullpath)
                     for page in pages:
                         pix = page.get_pixmap()
-                        pix.save(f"{filename}_%i{out_extension}" % (page.number+1))
+                        pix.save(f"{out_dir}/{filename}_%i{out_extension}" % (page.number+1))
                     
                 # その他
                 else:
@@ -103,7 +103,7 @@ class MyLayout(Widget):
         else:
             # 出力がPDFの場合
             if out_extension == '.pdf':
-                with open(f"{out_name}.pdf","wb") as f:
+                with open(f"{out_dir}/{out_name}.pdf","wb") as f:
                     f.write(img2pdf.convert([fullpath]))
                 return
 
@@ -113,7 +113,7 @@ class MyLayout(Widget):
                 pages = fitz.open(fullpath)
                 for page in pages:
                     pix = page.get_pixmap()
-                    pix.save(f"{out_name}_%i.png" % (page.number+1))
+                    pix.save(f"{out_dir}/{out_name}_%i.png" % (page.number+1))
                 return
             else:
                 cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}/{out_name}{out_extension}\"'
