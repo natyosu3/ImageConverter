@@ -23,6 +23,7 @@ Config.set('graphics', 'height', 200)
 Config.set('graphics', 'resizable', 0)
 #Config.write()
 
+# kvファイル読み込み
 Builder.load_file("12345.kv")
 
 # ファイルパスリスト(global)
@@ -94,12 +95,14 @@ class MyLayout(Widget):
 
         # 単一ファイルの場合
         else:
-            if out_extension == '.pdf': #出力がPDFの場合
+            # 出力がPDFの場合
+            if out_extension == '.pdf':
                 with open(f"{out_name}.pdf","wb") as f:
                     f.write(img2pdf.convert([fullpath]))
                 return
 
-            elif input_ext == '.pdf': #入力がPDFの場合
+            # 入力がPDFの場合
+            elif input_ext == '.pdf':
                 print(fullpath)
                 pages = fitz.open(fullpath)
                 for page in pages:
