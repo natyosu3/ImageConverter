@@ -45,6 +45,7 @@ class MyLayout(Widget):
     def run_button(self):
         global input_paths
         out_extension = self.ids.item_list.text
+        out_dir = self.ids.output_path.text
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
@@ -89,7 +90,7 @@ class MyLayout(Widget):
                     
                 # その他
                 else:
-                    cmd = f'ffmpeg.exe -i \"{fullpath}\" {filename}{out_extension}'
+                    cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}/{filename}{out_extension}\"'
                     th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
                     th1.start()
 
@@ -110,7 +111,7 @@ class MyLayout(Widget):
                     pix.save(f"{out_name}_%i.png" % (page.number+1))
                 return
             else:
-                cmd = f'ffmpeg.exe -i \"{fullpath}\" {out_name}{out_extension}'
+                cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}/{out_name}{out_extension}\"'
                 th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
                 th1.start()
 
@@ -157,6 +158,15 @@ class PathButton(Button):
         for pt in pts:
             input_paths.append(pt)
         return str(pts)
+
+
+class OutPathButton(Button):
+    @staticmethod        
+    def get_path():
+        root = tk.Tk()
+        root.withdraw()
+        out_dir = filedialog.askdirectory()
+        return out_dir
 
 
 class MyApp(App):

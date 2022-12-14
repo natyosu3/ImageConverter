@@ -56,7 +56,7 @@
       size_hint: (None, None)
       size: 400,25
 
-    PathButton:
+    OutPathButton:
       text:"参照"
       font_size: 16
       size_hint: (None, None)
@@ -64,8 +64,7 @@
       pos: 510, 127
       color: (0, 1, 1, 1)
       background_color: (175/255, 238/255, 238/255, 1)
-      on_press: input_path.text = self.get_path()
-      on_press: root.ids.input_path.text = ''
+      on_press: output_path.text = self.get_path()
 
     MySpinner:
       id: item_list
