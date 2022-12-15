@@ -120,11 +120,6 @@ class MyLayout(Widget):
                 th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
                 th1.start()
 
-    def on_touch_d(self, touch):
-        print(touch.pos)
-        if self.ids.init_ms1.collide_point(*touch.pos):
-            self.ids.init_ms1.text = ''
-
     def popup_open(self):
         content = PopupMenu(popup_close=self.popup_close)
         self.popup = Popup(title='RUN ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
