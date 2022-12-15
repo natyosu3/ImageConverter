@@ -38,7 +38,7 @@ class MyLayout(Widget):
 
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
-        Clock.schedule_interval(self.my_callback, 1)
+        Clock.schedule_interval(self.my_callback, 0.7)
         self.add_widget(Decoration())
         
     # I/O 拡張子をループで取得

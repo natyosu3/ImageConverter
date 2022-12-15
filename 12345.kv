@@ -22,8 +22,8 @@
     TextInput:
       id: input_path
       multiline: False
-      background_color: (169/255, 169/255, 169/255, 1)
-      font_size: 11.5
+      background_color: (169/255, 169/255, 169/255, 0.8)
+      font_size: 12.5
       pos: 80, 160
       size_hint: (None, None)
       size: 400,25
@@ -102,7 +102,7 @@
       text: "入力拡張子"
       size_hint: (None, None)
       size: 20, 10
-      pos: 205, 60
+      pos: 205, 50
 
     Label:
       id: input_ext
@@ -110,14 +110,14 @@
       text: '未入力'
       size_hint: None, None
       size: 20, 10
-      pos: 280, 60
+      pos: 280, 50
 
     Label:
       color: 0, 0, 0, 1
       text: "出力拡張子"
       size_hint: (None, None)
       size: 20, 10
-      pos: 205, 30
+      pos: 205, 22
 
     Label:
       id: output_ext
@@ -125,7 +125,7 @@
       text: '未入力'
       size_hint: None, None
       size: 20, 10
-      pos: 280, 30
+      pos: 280, 22
 
     Button:
       text: '実行'
@@ -191,7 +191,20 @@
       width: 1
 
     Line:
-      rectangle: 170, 15, 320, 65
+      rectangle: 170, 12, 320, 65
+    Color:
+      rgba: 255/255, 250/255, 250/255, 1
+      #rgba: 0, 0, 0, 1
+    Rectangle:
+      size: 42, 17
+      pos: 210, 65
+
+  Label:
+    color: 0, 0, 0, 1
+    text: "INFO"
+    size_hint: None, None
+    size: 20, 10
+    pos: 220, 72.5
 
 
 <SpinnerButton>:
