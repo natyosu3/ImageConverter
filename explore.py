@@ -20,9 +20,9 @@ import os
 
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Config.set('graphics', 'width', 600)    
-Config.set('graphics', 'height', 200)
+Config.set('graphics', 'height', 225)
 Config.set('graphics', 'resizable', 0)
-#Config.write()
+Config.write()
 
 # kvファイル読み込み
 Builder.load_file("12345.kv")
@@ -39,6 +39,7 @@ class MyLayout(Widget):
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
         Clock.schedule_interval(self.my_callback, 1)
+        self.add_widget(Decoration())
         
     # INPUTの拡張子をループで取得
     def my_callback(self, dt):
@@ -187,6 +188,9 @@ class OutPathButton(Button):
         root.withdraw()
         out_dir = filedialog.askdirectory()
         return out_dir
+
+class Decoration(Widget):
+    pass
 
 
 class MyApp(App):

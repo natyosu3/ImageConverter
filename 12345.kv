@@ -2,7 +2,7 @@
 
 <MyLayout>
   FloatLayout:
-    size: 600, 200
+    size: 600, 225
 
     canvas.before:
       Color:
@@ -100,8 +100,63 @@
       font_size: 22
       size_hint: (None, None)
       size: 70, 70
-      pos: 500, 20
+      pos: 500, 13
       on_press: root.run_button()
+
+# decoration
+<Decoration>:
+  canvas:
+    Color:
+      rgb: 0, 1, 0
+    # 入力
+    Line:
+      rectangle: (22, 160, 38, 22)
+      width: 0.8
+    # 出力
+    Line:
+      rectangle: (22, 125, 38, 22)
+      width: 0.8
+    # 参照(上)
+    Line:
+      rectangle: (510, 160, 50, 27)
+      width: 0.8
+    # 参照(下)
+    Line:
+      rectangle: (510, 127, 50, 27)
+      width: 0.8
+    # 選択
+    Line:
+      rectangle: (20, 93, 58, 24)
+      width: 0.8
+    # 横線
+    Line:
+      points: (40, 195), (535, 195)
+      width: 1
+    Line:
+      points: (40, 87), (535, 87)
+      width: 1
+    # 縦線
+    Line:
+      points: (40, 87), (40, 93)
+      width: 1
+    Line:
+      points: (40, 117), (40, 124)
+      width: 1
+    Line:
+      points: (40, 147), (40, 160)
+      width: 1
+    Line:
+      points: (40, 182), (40, 196)
+      width: 1
+    Line:
+      points: (535, 188), (535, 196)
+      width: 1
+    Line:
+      points: (535, 155), (535, 160)
+      width: 1
+    Line:
+      points: (535, 85), (535, 128)
+      width: 1
 
 
 <SpinnerButton>:
