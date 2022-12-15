@@ -122,8 +122,6 @@ class MyLayout(Widget):
 
     def on_touch_d(self, touch):
         print(touch.pos)
-        if self.ids.init_ms.collide_point(*touch.pos):
-            self.ids.init_ms.text = ''
         if self.ids.init_ms1.collide_point(*touch.pos):
             self.ids.init_ms1.text = ''
 
