@@ -41,13 +41,14 @@ class MyLayout(Widget):
         Clock.schedule_interval(self.my_callback, 1)
         self.add_widget(Decoration())
         
-    # INPUTの拡張子をループで取得
+    # I/O 拡張子をループで取得
     def my_callback(self, dt):
         try:
+            self.ids.output_ext.text = self.ids.item_list.text
             out = eval(self.ids.input_path.text)
-            print(os.path.splitext(out[0])[1])
+            self.ids.input_ext.text = os.path.splitext(out[0])[1]
         except SyntaxError:
-            print('NULL')
+            self.ids.input_ext.text = '未選択'
 
     def convert(cmd):
         print(cmd)

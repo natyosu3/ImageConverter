@@ -27,6 +27,9 @@
       pos: 80, 160
       size_hint: (None, None)
       size: 400,25
+      hint_text_color: 0, 0, 0, 0.9
+      hint_text: "ドラッグ&ドロップ または 参照ボタンを押してください"
+      disabled: True
 
     PathButton:
       text:"参照"
@@ -94,6 +97,35 @@
       pos: 200, 92.5
       hint_text: "※拡張子不要 (複数ファイル時-不可)"
 
+    Label:
+      color: 0, 0, 0, 1
+      text: "入力拡張子"
+      size_hint: (None, None)
+      size: 20, 10
+      pos: 205, 60
+
+    Label:
+      id: input_ext
+      color: 0, 0, 0, 1
+      text: '未入力'
+      size_hint: None, None
+      size: 20, 10
+      pos: 280, 60
+
+    Label:
+      color: 0, 0, 0, 1
+      text: "出力拡張子"
+      size_hint: (None, None)
+      size: 20, 10
+      pos: 205, 30
+
+    Label:
+      id: output_ext
+      color: 0, 0, 0, 1
+      text: '未入力'
+      size_hint: None, None
+      size: 20, 10
+      pos: 280, 30
 
     Button:
       text: '実行'
@@ -157,6 +189,9 @@
     Line:
       points: (535, 85), (535, 128)
       width: 1
+
+    Line:
+      rectangle: 170, 15, 320, 65
 
 
 <SpinnerButton>:
