@@ -53,11 +53,14 @@ class MyLayout(Widget):
     def change_condition(self, dt):
         self.ids.condition.text = 'Ready'
 
+    def clock_run(self):
+        Clock.schedule_once(self.change_condition, 3)
+
     def convert(self, cmd):
         print(cmd)
         subprocess.run(cmd)
         self.ids.condition.text = 'Finished'
-        Clock.schedule_once(self.change_condition, 2)
+        self.clock_run()
 
     def run_button(self):
         global input_paths
@@ -107,7 +110,7 @@ class MyLayout(Widget):
                     with open(f"{out_dir}{filename}.pdf","wb") as f:
                         f.write(img2pdf.convert([fullpath]))
                     self.ids.condition.text = 'Finished'
-                    Clock.schedule_once(self.change_condition, 2)
+                    self.clock_run()
                 
                 # 入力がPDFの場合
                 elif input_ext == '.pdf':
@@ -117,7 +120,7 @@ class MyLayout(Widget):
                         pix = page.get_pixmap()
                         pix.save(f"{out_dir}{filename}_%i{out_extension}" % (page.number+1))
                     self.ids.condition.text = 'Finished'
-                    Clock.schedule_once(self.change_condition, 2)
+                    self.clock_run()
                     
                 # その他
                 else:
@@ -132,7 +135,7 @@ class MyLayout(Widget):
                 with open(f"{out_dir}{out_name}.pdf","wb") as f:
                     f.write(img2pdf.convert([fullpath]))
                 self.ids.condition.text = 'Finished'
-                Clock.schedule_once(self.change_condition, 2)
+                self.clock_run()
 
             # 入力がPDFの場合
             elif input_ext == '.pdf':
@@ -142,7 +145,8 @@ class MyLayout(Widget):
                     pix = page.get_pixmap()
                     pix.save(f"{out_dir}{out_name}_%i.png" % (page.number+1))
                 self.ids.condition.text = 'Finished'
-                Clock.schedule_once(self.change_condition, 2)
+                self.clock_run()
+                
             else:
                 cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
                 th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
