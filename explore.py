@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
+from kivy.clock import Clock
 import japanize_kivy
 from kivy.config import Config
 from kivy.properties import ObjectProperty
@@ -37,6 +38,17 @@ class MyLayout(Widget):
 
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
+        Clock.schedule_interval(self.my_callback, 1)
+        
+    # INPUTの拡張子をループで取得
+    def my_callback(self, dt):
+        global input_paths
+        try:
+            path = os.path.splitext(input_paths[0])
+            print(path[1])
+        except:
+            return None
+
 
     def convert(cmd):
         print(cmd)
