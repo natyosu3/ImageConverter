@@ -43,13 +43,11 @@ class MyLayout(Widget):
         
     # INPUTの拡張子をループで取得
     def my_callback(self, dt):
-        global input_paths
         try:
-            path = os.path.splitext(input_paths[0])
-            print(path[1])
-        except:
-            return None
-
+            out = eval(self.ids.input_path.text)
+            print(os.path.splitext(out[0])[1])
+        except SyntaxError:
+            print('NULL')
 
     def convert(cmd):
         print(cmd)
