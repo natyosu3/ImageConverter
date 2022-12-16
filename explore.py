@@ -100,6 +100,10 @@ class MyLayout(Widget):
             print('gifはpdfのみ出力可能です')
             return None
 
+        if (out_extension in ['.jpeg', '.webp'] and (input_ext in ['.pdf', '.PDF'])):
+            print('pdfはpngのみ出力可可能です')
+            return None
+            
         # 出力ファイル名が未入力の場合-空文字
         if out_name == '':
             out_name = filename
