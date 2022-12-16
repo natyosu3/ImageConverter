@@ -67,6 +67,8 @@ class MyLayout(Widget):
         out_extension = self.ids.item_list.text
         out_dir = self.ids.output_path.text + '/'
 
+        print(input_paths)
+
         if out_extension == '選択...' :
             self.popup_open()
             return print('e')
@@ -80,7 +82,9 @@ class MyLayout(Widget):
             self.InputErrorPopupMenu()
             return print('e')
 
-        if input_ext != ('.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP' or '.pdf' or '.PDF' or '.gif' or '.GIF'):
+        print(input_ext)
+
+        if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
             self.Input_EXT_ErrorPopupMenu()
             return None
 
@@ -110,7 +114,7 @@ class MyLayout(Widget):
                 input_ext = path[1]
 
                 # 出力がPDFの場合
-                if out_extension == '.pdf' or input_ext == '.gif' or '.GIF':
+                if (out_extension == '.pdf') or (input_ext in ['.gif', '.GIF']):
                     with open(f"{out_dir}{filename}.pdf","wb") as f:
                         f.write(img2pdf.convert([fullpath]))
                     self.ids.condition.text = 'Finished'
@@ -204,6 +208,7 @@ class PathButton(Button):
     @staticmethod        
     def get_path():
         global input_paths
+        input_paths = []
 
         root = tk.Tk()
         root.withdraw()
