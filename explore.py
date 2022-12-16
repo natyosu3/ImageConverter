@@ -16,6 +16,7 @@ import subprocess
 import threading
 import img2pdf
 import fitz
+import time
 import os
 
 
@@ -79,6 +80,14 @@ class MyLayout(Widget):
     def multi_pdf_output_convert(self, filename, out_dir, fullpath):
         with open(f"{out_dir}{filename}.pdf","wb") as f:
             f.write(img2pdf.convert([fullpath]))
+        self.ids.condition.text = 'Finished'
+        self.clock_run()
+
+    def multi_pdf_input_convert(self, pages, out_dir, filename):
+        for page in pages:
+            pix = page.get_pixmap()
+            pix.save(f"{out_dir}{filename}_%i.png" % (page.number+1))
+        time.sleep(1)
         self.ids.condition.text = 'Finished'
         self.clock_run()
 
@@ -149,11 +158,8 @@ class MyLayout(Widget):
                 # 入力がPDFの場合
                 elif input_ext in ['.pdf', '.PDF']:
                     pages = fitz.open(fullpath)
-                    for page in pages:
-                        pix = page.get_pixmap()
-                        pix.save(f"{out_dir}{filename}_%i.png" % (page.number+1))
-                    self.ids.condition.text = 'Finished'
-                    self.clock_run()
+                    th = threading.Thread(target=self.multi_pdf_input_convert, args=(pages, out_dir, filename))
+                    th.start()
                     
                 # その他
                 else:
