@@ -80,6 +80,10 @@ class MyLayout(Widget):
             self.InputErrorPopupMenu()
             return print('e')
 
+        if input_ext != ('.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP' or '.pdf' or '.PDF' or '.gif' or '.GIF'):
+            self.Input_EXT_ErrorPopupMenu()
+            return None
+
         out_name = str(self.ids.out_name.text)
 
         # (error)入出力拡張子が同じ場合
@@ -106,7 +110,7 @@ class MyLayout(Widget):
                 input_ext = path[1]
 
                 # 出力がPDFの場合
-                if out_extension == '.pdf':
+                if out_extension == '.pdf' or input_ext == '.gif' or '.GIF':
                     with open(f"{out_dir}{filename}.pdf","wb") as f:
                         f.write(img2pdf.convert([fullpath]))
                     self.ids.condition.text = 'Finished'
@@ -121,9 +125,6 @@ class MyLayout(Widget):
                         pix.save(f"{out_dir}{filename}_%i{out_extension}" % (page.number+1))
                     self.ids.condition.text = 'Finished'
                     self.clock_run()
-
-                elif input_ext != '.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP':
-                    self.Input_EXT_ErrorPopupMenu()
                     
                 # その他
                 else:
@@ -134,7 +135,7 @@ class MyLayout(Widget):
         # 単一ファイルの場合
         else:
             # 出力がPDFの場合
-            if out_extension == '.pdf':
+            if out_extension == '.pdf' or (input_ext == ('.gif' or '.GIF')):
                 with open(f"{out_dir}{out_name}.pdf","wb") as f:
                     f.write(img2pdf.convert([fullpath]))
                 self.ids.condition.text = 'Finished'
@@ -149,9 +150,6 @@ class MyLayout(Widget):
                     pix.save(f"{out_dir}{out_name}_%i.png" % (page.number+1))
                 self.ids.condition.text = 'Finished'
                 self.clock_run()
-
-            elif input_ext != '.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP':
-                self.Input_EXT_ErrorPopupMenu()
                 
             else:
                 cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
