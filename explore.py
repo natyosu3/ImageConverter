@@ -273,6 +273,7 @@ class Decoration(Widget):
 
 class MyApp(App):
     def build(self):
+        self.title = 'Image-Converter'
         return MyLayout()
 
 if __name__ == '__main__':
