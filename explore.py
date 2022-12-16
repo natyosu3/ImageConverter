@@ -96,6 +96,10 @@ class MyLayout(Widget):
             self.popup_open2()
             return
 
+        if (out_extension in ['.png', '.jpeg', '.webp']) and (input_ext in ['.gif', '.GIF']):
+            print('gifはpdfのみ出力可能です')
+            return None
+
         # 出力ファイル名が未入力の場合-空文字
         if out_name == '':
             out_name = filename
