@@ -53,6 +53,7 @@ class MyLayout(Widget):
             self.ids.input_ext.text = '未入力'
 
     def change_condition(self, dt):
+        self.ids.run_botton.disabled = True
         self.ids.condition.text = 'Ready'
 
     def clock_run(self):
@@ -140,7 +141,7 @@ class MyLayout(Widget):
         if out_dir == '/':
             out_dir = ''
         
-        self.ids.condition.text = 'Running'
+        self.ids.run_botton.disabled = True
 
         # 複数ファイルの場合
         if len(input_paths) != 1:
@@ -164,7 +165,7 @@ class MyLayout(Widget):
                 # その他
                 else:
                     cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
-                    th1 = threading.Thread(target=self.convert, args=(self, cmd,))
+                    th1 = threading.Thread(target=self.convert, args=(cmd,))
                     th1.start()
 
         # 単一ファイルの場合
@@ -182,7 +183,7 @@ class MyLayout(Widget):
                 
             else:
                 cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
-                th1 = threading.Thread(target=self.convert, args=(self, cmd,))
+                th1 = threading.Thread(target=self.convert, args=(cmd,))
                 th1.start()
 
     def popup_open(self):
