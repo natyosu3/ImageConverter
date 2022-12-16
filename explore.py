@@ -113,7 +113,7 @@ class MyLayout(Widget):
                     self.clock_run()
                 
                 # 入力がPDFの場合
-                elif input_ext == '.pdf':
+                elif input_ext == '.pdf' or '.PDF':
                     print(fullpath)
                     pages = fitz.open(fullpath)
                     for page in pages:
@@ -121,6 +121,9 @@ class MyLayout(Widget):
                         pix.save(f"{out_dir}{filename}_%i{out_extension}" % (page.number+1))
                     self.ids.condition.text = 'Finished'
                     self.clock_run()
+
+                elif input_ext != '.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP':
+                    self.Input_EXT_ErrorPopupMenu()
                     
                 # その他
                 else:
@@ -146,6 +149,9 @@ class MyLayout(Widget):
                     pix.save(f"{out_dir}{out_name}_%i.png" % (page.number+1))
                 self.ids.condition.text = 'Finished'
                 self.clock_run()
+
+            elif input_ext != '.png' or '.PNG' or '.jpeg' or '.JPEG' or '.jpg' or '.JPG' or '.webp' or '.Webp' or '.WEBP':
+                self.Input_EXT_ErrorPopupMenu()
                 
             else:
                 cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
@@ -167,6 +173,13 @@ class MyLayout(Widget):
         self.popup = Popup(title='INPUT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
 
+    def Input_EXT_ErrorPopupMenu(self):
+        content = Input_EXT_ErrorPopupMenu(popup_close=self.popup_close)
+        self.popup = Popup(title='INPUT_EXT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
+        self.ids.condition.text = 'Error'
+        self.clock_run()
+
     def popup_close(self):
         self.popup.dismiss()
 
@@ -183,6 +196,8 @@ class PopupMenu2(BoxLayout):
 class InputErrorPopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
+class Input_EXT_ErrorPopupMenu(BoxLayout):
+    popup_close = ObjectProperty(None)
 
 class MySpinner(Spinner):
     option_cls = ObjectProperty(SpinnerButton)
