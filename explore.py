@@ -48,7 +48,7 @@ class MyLayout(Widget):
             out = eval(self.ids.input_path.text)
             self.ids.input_ext.text = os.path.splitext(out[0])[1]
         except SyntaxError:
-            self.ids.input_ext.text = '未選択'
+            self.ids.input_ext.text = '未入力'
 
     def change_condition(self, dt):
         self.ids.condition.text = 'Ready'
