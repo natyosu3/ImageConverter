@@ -125,7 +125,7 @@ class MyLayout(Widget):
                 # その他
                 else:
                     cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
-                    th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
+                    th1 = threading.Thread(target=MyLayout.convert, args=(self, cmd,))
                     th1.start()
 
         # 単一ファイルの場合
@@ -149,7 +149,7 @@ class MyLayout(Widget):
                 
             else:
                 cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
-                th1 = threading.Thread(target=MyLayout.convert, args=(cmd,))
+                th1 = threading.Thread(target=MyLayout.convert, args=(self, cmd,))
                 th1.start()
 
     def popup_open(self):
