@@ -63,6 +63,12 @@ class MyLayout(Widget):
         self.ids.condition.text = 'Finished'
         self.clock_run()
 
+    def singul_pdf_convert(self, out_dir, out_name, fullpath):
+        with open(f"{out_dir}{out_name}.pdf","wb") as f:
+            f.write(img2pdf.convert([fullpath]))
+        self.ids.condition.text = 'Finished'
+        self.clock_run()
+
     def run_button(self):
         global input_paths
         out_extension = self.ids.item_list.text
@@ -72,7 +78,7 @@ class MyLayout(Widget):
 
         if out_extension == '選択...' :
             self.popup_open()
-            return print('e')
+            return None
         
         try:
             fullpath = input_paths[0]
@@ -81,7 +87,7 @@ class MyLayout(Widget):
             input_ext = path[1]
         except:
             self.InputErrorPopupMenu()
-            return print('e')
+            return None
 
         print(input_ext)
 
@@ -140,18 +146,20 @@ class MyLayout(Widget):
                     
                 # その他
                 else:
-                    cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
-                    th1 = threading.Thread(target=MyLayout.convert, args=(self, cmd,))
+                    cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
+                    th1 = threading.Thread(target=self.convert, args=(self, cmd,))
                     th1.start()
 
         # 単一ファイルの場合
         else:
             # 出力がPDFの場合
             if out_extension == '.pdf' or (input_ext == ('.gif' or '.GIF')):
-                with open(f"{out_dir}{out_name}.pdf","wb") as f:
-                    f.write(img2pdf.convert([fullpath]))
-                self.ids.condition.text = 'Finished'
-                self.clock_run()
+                #with open(f"{out_dir}{out_name}.pdf","wb") as f:
+                #    f.write(img2pdf.convert([fullpath]))
+                #self.ids.condition.text = 'Finished'
+                #self.clock_run()
+                th = threading.Thread(target=self.singul_pdf_convert, args=(out_dir, out_name, fullpath,))
+                th.start()
 
             # 入力がPDFの場合
             elif input_ext in ['.pdf', '.PDF']:
@@ -163,8 +171,8 @@ class MyLayout(Widget):
                 self.clock_run()
                 
             else:
-                cmd = f'ffmpeg.exe -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
-                th1 = threading.Thread(target=MyLayout.convert, args=(self, cmd,))
+                cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
+                th1 = threading.Thread(target=self.convert, args=(self, cmd,))
                 th1.start()
 
     def popup_open(self):
