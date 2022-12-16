@@ -269,3 +269,27 @@
     Button:
       text: 'Close'
       on_release: root.popup_close()
+
+<PDF_CONVERT_ErrorPopupMenu>
+  orientation: 'vertical'
+
+  Label:
+    text: 'PDFはPNGのみ出力可能です'
+    center: root.center
+
+  BoxLayout:
+    Button:
+      text: 'Close'
+      on_release: root.popup_close()
+
+<GIF_CONVERT_ErrorPopupMenu>
+  orientation: 'vertical'
+
+  Label:
+    text: 'GIFはPDFのみ出力可能です'
+    center: root.center
+
+  BoxLayout:
+    Button:
+      text: 'Close'
+      on_release: root.popup_close()

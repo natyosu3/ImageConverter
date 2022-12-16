@@ -20,10 +20,8 @@ import os
 
 
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
-Config.set('graphics', 'width', 600)    
-Config.set('graphics', 'height', 220)
+Window.size = (600, 220)
 Config.set('graphics', 'resizable', 0)
-Config.write()
 
 # kvファイル読み込み
 Builder.load_file("12345.kv")
@@ -100,11 +98,11 @@ class MyLayout(Widget):
             return
 
         if (out_extension in ['.png', '.jpeg', '.webp']) and (input_ext in ['.gif', '.GIF']):
-            print('gifはpdfのみ出力可能です')
+            self.GIF_CONVERT_ErrorPopupMenu()
             return None
 
         if (out_extension in ['.jpeg', '.webp'] and (input_ext in ['.pdf', '.PDF'])):
-            print('pdfはpngのみ出力可可能です')
+            self.PDF_CONVERT_ErrorPopupMenu()
             return None
             
         # 出力ファイル名が未入力の場合-空文字
@@ -191,6 +189,20 @@ class MyLayout(Widget):
         self.ids.condition.text = 'Error'
         self.clock_run()
 
+    def PDF_CONVERT_ErrorPopupMenu(self):
+        content = PDF_CONVERT_ErrorPopupMenu(popup_close=self.popup_close)
+        self.popup = Popup(title='PDF_CONVERT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
+        self.ids.condition.text = 'Error'
+        self.clock_run()
+
+    def GIF_CONVERT_ErrorPopupMenu(self):
+        content = GIF_CONVERT_ErrorPopupMenu(popup_close=self.popup_close)
+        self.popup = Popup(title='GIF_CONVERT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.popup.open()
+        self.ids.condition.text = 'Error'
+        self.clock_run()
+
     def popup_close(self):
         self.popup.dismiss()
 
@@ -209,6 +221,12 @@ class InputErrorPopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
 class Input_EXT_ErrorPopupMenu(BoxLayout):
+    popup_close = ObjectProperty(None)
+
+class PDF_CONVERT_ErrorPopupMenu(BoxLayout):
+    popup_close = ObjectProperty(None)
+
+class GIF_CONVERT_ErrorPopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
 class MySpinner(Spinner):
