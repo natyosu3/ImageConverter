@@ -76,6 +76,12 @@ class MyLayout(Widget):
         self.ids.condition.text = 'Finished'
         self.clock_run()
 
+    def multi_pdf_output_convert(self, filename, out_dir, fullpath):
+        with open(f"{out_dir}{filename}.pdf","wb") as f:
+            f.write(img2pdf.convert([fullpath]))
+        self.ids.condition.text = 'Finished'
+        self.clock_run()
+
     def run_button(self):
         global input_paths
         out_extension = self.ids.item_list.text
@@ -137,10 +143,8 @@ class MyLayout(Widget):
 
                 # 出力がPDFの場合
                 if (out_extension == '.pdf') or (input_ext in ['.gif', '.GIF']):
-                    with open(f"{out_dir}{filename}.pdf","wb") as f:
-                        f.write(img2pdf.convert([fullpath]))
-                    self.ids.condition.text = 'Finished'
-                    self.clock_run()
+                    th = threading.Thread(target=self.multi_pdf_output_convert, args=(filename, out_dir, fullpath))
+                    th.start()
                 
                 # 入力がPDFの場合
                 elif input_ext in ['.pdf', '.PDF']:
