@@ -63,9 +63,16 @@ class MyLayout(Widget):
         self.ids.condition.text = 'Finished'
         self.clock_run()
 
-    def singul_pdf_convert(self, out_dir, out_name, fullpath):
+    def singul_pdf_output_convert(self, out_dir, out_name, fullpath):
         with open(f"{out_dir}{out_name}.pdf","wb") as f:
             f.write(img2pdf.convert([fullpath]))
+        self.ids.condition.text = 'Finished'
+        self.clock_run()
+
+    def singul_pdf_input_convert(self, pages, out_dir, out_name):
+        for page in pages:
+            pix = page.get_pixmap()
+            pix.save(f"{out_dir}{out_name}_%i.png" % (page.number+1))
         self.ids.condition.text = 'Finished'
         self.clock_run()
 
@@ -154,21 +161,14 @@ class MyLayout(Widget):
         else:
             # 出力がPDFの場合
             if out_extension == '.pdf' or (input_ext == ('.gif' or '.GIF')):
-                #with open(f"{out_dir}{out_name}.pdf","wb") as f:
-                #    f.write(img2pdf.convert([fullpath]))
-                #self.ids.condition.text = 'Finished'
-                #self.clock_run()
-                th = threading.Thread(target=self.singul_pdf_convert, args=(out_dir, out_name, fullpath,))
+                th = threading.Thread(target=self.singul_pdf_output_convert, args=(out_dir, out_name, fullpath,))
                 th.start()
 
             # 入力がPDFの場合
             elif input_ext in ['.pdf', '.PDF']:
                 pages = fitz.open(fullpath)
-                for page in pages:
-                    pix = page.get_pixmap()
-                    pix.save(f"{out_dir}{out_name}_%i.png" % (page.number+1))
-                self.ids.condition.text = 'Finished'
-                self.clock_run()
+                th = threading.Thread(target=self.singul_pdf_input_convert, args=(pages, out_dir, out_name,))
+                th.start()
                 
             else:
                 cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
