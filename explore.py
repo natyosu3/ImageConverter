@@ -84,7 +84,7 @@ class MyLayout(Widget):
 
         print(input_ext)
 
-        if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
+        if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', 'WebP', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
             self.Input_EXT_ErrorPopupMenu()
             return None
 
@@ -113,6 +113,8 @@ class MyLayout(Widget):
                 filename = path[0]
                 input_ext = path[1]
 
+                # 入力がgifの場合はpdf出力のみ対応
+
                 # 出力がPDFの場合
                 if (out_extension == '.pdf') or (input_ext in ['.gif', '.GIF']):
                     with open(f"{out_dir}{filename}.pdf","wb") as f:
@@ -126,7 +128,7 @@ class MyLayout(Widget):
                     pages = fitz.open(fullpath)
                     for page in pages:
                         pix = page.get_pixmap()
-                        pix.save(f"{out_dir}{filename}_%i{out_extension}" % (page.number+1))
+                        pix.save(f"{out_dir}{filename}_%i.png" % (page.number+1))
                     self.ids.condition.text = 'Finished'
                     self.clock_run()
                     
