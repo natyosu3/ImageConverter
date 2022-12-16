@@ -7,6 +7,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
+from kivy.core.window import Window
 import japanize_kivy
 from kivy.config import Config
 from kivy.properties import ObjectProperty
@@ -43,11 +44,12 @@ class MyLayout(Widget):
         
     # I/O 拡張子をループで取得
     def my_callback(self, dt):
+        self.ids.input_path.text = str(input_paths)
         try:
             self.ids.output_ext.text = self.ids.item_list.text
             out = eval(self.ids.input_path.text)
             self.ids.input_ext.text = os.path.splitext(out[0])[1]
-        except SyntaxError:
+        except:
             self.ids.input_ext.text = '未入力'
 
     def change_condition(self, dt):
@@ -195,6 +197,9 @@ class MyLayout(Widget):
     def popup_close(self):
         self.popup.dismiss()
 
+    def label_to_null(self):
+        self.ids.input_path.text = ''
+
 class SpinnerButton(Button):
     pass
 
@@ -242,7 +247,16 @@ class Decoration(Widget):
 
 class MyApp(App):
     def build(self):
+        self.screen = MyLayout()
+        Window.bind(on_dropfile=self.on_drop_file)
         return MyLayout()
+
+    def on_drop_file(self, window, file_path):
+        global input_paths
+        input_paths = []
+        print(file_path.decode('utf-8'))
+        input_paths.append(file_path.decode('utf-8'))
+        self.screen.ids.input_path.text = ''
 
 if __name__ == '__main__':
     MyApp().run()
