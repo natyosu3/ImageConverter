@@ -21,7 +21,7 @@ import os
 
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Config.set('graphics', 'width', 600)    
-Config.set('graphics', 'height', 225)
+Config.set('graphics', 'height', 220)
 Config.set('graphics', 'resizable', 0)
 Config.write()
 
@@ -124,8 +124,6 @@ class MyLayout(Widget):
                 filename = path[0]
                 input_ext = path[1]
 
-                # 入力がgifの場合はpdf出力のみ対応
-
                 # 出力がPDFの場合
                 if (out_extension == '.pdf') or (input_ext in ['.gif', '.GIF']):
                     with open(f"{out_dir}{filename}.pdf","wb") as f:
@@ -134,8 +132,7 @@ class MyLayout(Widget):
                     self.clock_run()
                 
                 # 入力がPDFの場合
-                elif input_ext == '.pdf' or '.PDF':
-                    print(fullpath)
+                elif input_ext in ['.pdf', '.PDF']:
                     pages = fitz.open(fullpath)
                     for page in pages:
                         pix = page.get_pixmap()
@@ -159,8 +156,7 @@ class MyLayout(Widget):
                 self.clock_run()
 
             # 入力がPDFの場合
-            elif input_ext == '.pdf':
-                print(fullpath)
+            elif input_ext in ['.pdf', '.PDF']:
                 pages = fitz.open(fullpath)
                 for page in pages:
                     pix = page.get_pixmap()
@@ -246,16 +242,7 @@ class Decoration(Widget):
 
 class MyApp(App):
     def build(self):
-        self.screen = MyLayout()
-        Window.bind(on_dropfile=self.on_drop_files)
         return MyLayout()
-
-    def on_drop_files(self, window, file_path):
-        global input_paths
-        input_paths = []
-        print(file_path.decode('utf-8'))
-        input_paths.append(file_path.decode('utf-8'))
-        self.screen.ids.input_path.text = 'aaaaaa'
 
 if __name__ == '__main__':
     MyApp().run()
