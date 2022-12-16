@@ -53,14 +53,13 @@ class MyLayout(Widget):
             self.ids.input_ext.text = '未入力'
 
     def change_condition(self, dt):
-        self.ids.run_botton.disabled = True
+        self.ids.run_botton.disabled = False
         self.ids.condition.text = 'Ready'
 
     def clock_run(self):
         Clock.schedule_once(self.change_condition, 3)
 
     def convert(self, cmd):
-        print(cmd)
         subprocess.run(cmd)
         self.ids.condition.text = 'Finished'
         self.clock_run()
@@ -97,8 +96,6 @@ class MyLayout(Widget):
         out_extension = self.ids.item_list.text
         out_dir = self.ids.output_path.text + '/'
 
-        print(input_paths)
-
         if out_extension == '選択...' :
             self.popup_open()
             return None
@@ -112,8 +109,6 @@ class MyLayout(Widget):
             self.InputErrorPopupMenu()
             return None
 
-        print(input_ext)
-
         if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', 'WebP', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
             self.Input_EXT_ErrorPopupMenu()
             return None
@@ -122,9 +117,8 @@ class MyLayout(Widget):
 
         # (error)入出力拡張子が同じ場合
         if input_ext == out_extension:
-            print('e')
             self.popup_open2()
-            return
+            return None
 
         if (out_extension in ['.png', '.jpeg', '.webp']) and (input_ext in ['.gif', '.GIF']):
             self.GIF_CONVERT_ErrorPopupMenu()
