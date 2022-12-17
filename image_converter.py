@@ -19,13 +19,12 @@ import fitz
 import time
 import os
 
-
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Window.size = (600, 220)
 Config.set('graphics', 'resizable', 0)
 
 # kvファイル読み込み
-Builder.load_file("12345.kv")
+Builder.load_file("img_conv.kv")
 
 # ファイルパスリスト(global)
 input_paths=[]
