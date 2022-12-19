@@ -8,10 +8,10 @@ from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.core.window import Window
-import japanize_kivy
 from kivy.config import Config
 from kivy.properties import ObjectProperty
 from kivy.uix.spinner import Spinner
+from kivy.weakmethod import WeakMethod
 import subprocess
 import threading
 import img2pdf
@@ -19,12 +19,16 @@ import fitz
 import time
 import os
 
+# コンパイル設定
+cwd = os.getcwd()
+base_path = os.path.dirname(__file__)
+os.environ['Path'] = base_path
+os.chdir(base_path)
+
+# kivy window config
 os.environ ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 Window.size = (600, 220)
 Config.set('graphics', 'resizable', 0)
-
-# kvファイル読み込み
-Builder.load_file("img_conv.kv")
 
 # ファイルパスリスト(global)
 input_paths=[]
@@ -108,7 +112,7 @@ class MyLayout(Widget):
             self.InputErrorPopupMenu()
             return None
 
-        if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', 'WebP', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
+        if input_ext not in ['.png', '.PNG', '.jpeg', '.JPEG',  '.jpg', '.JPG', '.webp', '.Webp', '.WebP', '.WEBP', '.pdf', '.PDF', '.gif', '.GIF']:
             self.Input_EXT_ErrorPopupMenu()
             return None
 
@@ -132,7 +136,7 @@ class MyLayout(Widget):
             out_name = filename
 
         if out_dir == '/':
-            out_dir = ''
+            out_dir = cwd + '/'
         
         self.ids.run_botton.disabled = True
 
@@ -157,7 +161,7 @@ class MyLayout(Widget):
                     
                 # その他
                 else:
-                    cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
+                    cmd = f'ffmpeg -i -y \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
                     th1 = threading.Thread(target=self.convert, args=(cmd,))
                     th1.start()
 
@@ -175,7 +179,7 @@ class MyLayout(Widget):
                 th.start()
                 
             else:
-                cmd = f'ffmpeg -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
+                cmd = f'ffmpeg -i -y \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
                 th1 = threading.Thread(target=self.convert, args=(cmd,))
                 th1.start()
 
@@ -222,7 +226,6 @@ class MyLayout(Widget):
 class SpinnerButton(Button):
     pass
 
-
 class PopupMenu(BoxLayout):
     popup_close = ObjectProperty(None)
 
@@ -257,7 +260,6 @@ class PathButton(Button):
             input_paths.append(pt)
         return str(pts)
 
-
 class OutPathButton(Button):
     @staticmethod        
     def get_path():
@@ -273,6 +275,8 @@ class Decoration(Widget):
 class MyApp(App):
     def build(self):
         self.title = 'Image-Converter'
+        # kvファイル読み込み
+        Builder.load_file("img_conv.kv")
         return MyLayout()
 
 if __name__ == '__main__':
