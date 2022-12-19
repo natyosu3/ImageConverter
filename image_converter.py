@@ -186,16 +186,25 @@ class MyLayout(Widget):
     def popup_open(self):
         content = PopupMenu(popup_close=self.popup_close)
         self.popup = Popup(title='RUN ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
+        self.clock_run()
         self.popup.open()
 
     def popup_open2(self):
         content = PopupMenu2(popup_close=self.popup_close)
         self.popup = Popup(title='EXT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
+        self.clock_run()
         self.popup.open()
 
     def InputErrorPopupMenu(self):
         content = InputErrorPopupMenu(popup_close=self.popup_close)
         self.popup = Popup(title='INPUT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
+        self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
+        self.clock_run()
         self.popup.open()
 
     def Input_EXT_ErrorPopupMenu(self):
@@ -203,6 +212,7 @@ class MyLayout(Widget):
         self.popup = Popup(title='INPUT_EXT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
         self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
         self.clock_run()
 
     def PDF_CONVERT_ErrorPopupMenu(self):
@@ -210,6 +220,7 @@ class MyLayout(Widget):
         self.popup = Popup(title='PDF_CONVERT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
         self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
         self.clock_run()
 
     def GIF_CONVERT_ErrorPopupMenu(self):
@@ -217,6 +228,7 @@ class MyLayout(Widget):
         self.popup = Popup(title='GIF_CONVERT ERROR', content=content, size_hint=(0.6, 0.6), auto_dismiss=False)
         self.popup.open()
         self.ids.condition.text = 'Error'
+        self.ids.run_botton.disabled = True
         self.clock_run()
 
     def popup_close(self):
@@ -277,6 +289,7 @@ class MyApp(App):
         self.title = 'Image-Converter'
         # kvファイル読み込み
         Builder.load_file("img_conv.kv")
+        self.icon = 'main.ico'
         return MyLayout()
 
 if __name__ == '__main__':
