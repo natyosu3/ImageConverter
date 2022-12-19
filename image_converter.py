@@ -161,7 +161,7 @@ class MyLayout(Widget):
                     
                 # その他
                 else:
-                    cmd = f'ffmpeg -i -y \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
+                    cmd = f'ffmpeg -y -i \"{fullpath}\" \"{out_dir}{filename}{out_extension}\"'
                     th1 = threading.Thread(target=self.convert, args=(cmd,))
                     th1.start()
 
@@ -179,7 +179,7 @@ class MyLayout(Widget):
                 th.start()
                 
             else:
-                cmd = f'ffmpeg -i -y \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
+                cmd = f'ffmpeg -y -i \"{fullpath}\" \"{out_dir}{out_name}{out_extension}\"'
                 th1 = threading.Thread(target=self.convert, args=(cmd,))
                 th1.start()
 
