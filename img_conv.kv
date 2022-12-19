@@ -13,6 +13,7 @@
     
     Label:
       color: (0, 0, 0, 1)
+      font_name: '.\ipaexg.ttf'
       text: "入力"
       font_size: 16
       size_hint: (None, None)
@@ -28,12 +29,14 @@
       size_hint: (None, None)
       size: 400,25
       hint_text_color: 0, 0, 0, 0.9
+      font_name: '.\ipaexg.ttf'
       hint_text: "(複数選択可) 参照ボタンを押してください"
       disabled: True
 
     PathButton:
       text:"参照"
       font_size: 16
+      font_name: '.\ipaexg.ttf'
       size_hint: (None, None)
       size: 50, 27
       pos: 510, 160
@@ -46,6 +49,7 @@
       color: (0, 0, 0, 1)
       text: "出力"
       font_size: 16
+      font_name: '.\ipaexg.ttf'
       size_hint: (None, None)
       size: 50, 20
       pos: 15, 127
@@ -59,11 +63,13 @@
       size_hint: (None, None)
       size: 400,25
       hint_text: "※未入力の場合exe直下に出力"
+      font_name: '.\ipaexg.ttf'
       hint_text_color: 0, 0, 0, 0.6
 
     OutPathButton:
       text:"参照"
       font_size: 16
+      font_name: '.\ipaexg.ttf'
       size_hint: (None, None)
       size: 50, 27
       pos: 510, 127
@@ -76,6 +82,7 @@
       size_hint: (None, None)
       size: 60, 25
       pos: 20, 92.5
+      font_name: '.\ipaexg.ttf'
       text: '選択...'
       values: '.png', '.jpeg', '.pdf', '.webp'
 
@@ -83,6 +90,7 @@
     Label:
       text: "ファイル名"
       font_size: 16
+      font_name: '.\ipaexg.ttf'
       size_hint: (None, None)
       size: 140, 30
       pos: 70, 92.5
@@ -96,9 +104,11 @@
       size: 280, 25
       pos: 200, 92.5
       hint_text: "※拡張子不要 (複数ファイル時-不可)"
+      font_name: '.\ipaexg.ttf'
 
     Label:
       color: 0, 0, 0, 1
+      font_name: '.\ipaexg.ttf'
       text: "入力拡張子"
       size_hint: (None, None)
       size: 20, 10
@@ -107,6 +117,7 @@
     Label:
       id: input_ext
       color: 0, 0, 0, 1
+      font_name: '.\ipaexg.ttf'
       text: '未入力'
       size_hint: None, None
       size: 20, 10
@@ -114,6 +125,7 @@
 
     Label:
       color: 0, 0, 0, 1
+      font_name: '.\ipaexg.ttf'
       text: "出力拡張子"
       size_hint: (None, None)
       size: 20, 10
@@ -122,6 +134,7 @@
     Label:
       id: output_ext
       color: 0, 0, 0, 1
+      font_name: '.\ipaexg.ttf'
       text: '未入力'
       size_hint: None, None
       size: 20, 10
@@ -129,6 +142,7 @@
 
     Button:
       id: run_botton
+      font_name: '.\ipaexg.ttf'
       text: '実行'
       font_size: 22
       size_hint: (None, None)
@@ -228,6 +242,7 @@
   orientation: 'vertical'
 
   Label:
+    font_name: '.\ipaexg.ttf'
     text: '出力拡張子を選択してください'
     center: root.center
 
@@ -241,6 +256,7 @@
 
   Label:
     text: '入出力拡張子が同じです'
+    font_name: '.\ipaexg.ttf'
     center: root.center
 
   BoxLayout:
@@ -253,6 +269,7 @@
 
   Label:
     text: '入力ファイルに問題があります'
+    font_name: '.\ipaexg.ttf'
     center: root.center
 
   BoxLayout:
@@ -265,6 +282,7 @@
 
   Label:
     text: '入力拡張子は対応していません'
+    font_name: '.\ipaexg.ttf'
     center: root.center
 
   BoxLayout:
@@ -277,6 +295,7 @@
 
   Label:
     text: 'PDFはPNGのみ出力可能です'
+    font_name: '.\ipaexg.ttf'
     center: root.center
 
   BoxLayout:
@@ -289,6 +308,7 @@
 
   Label:
     text: 'GIFはPDFのみ出力可能です'
+    font_name: '.\ipaexg.ttf'
     center: root.center
 
   BoxLayout:
