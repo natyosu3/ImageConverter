@@ -13,7 +13,7 @@
 <br>
 
 #### 出力拡張子
-* PNG, JPEG, PDF, WEBP, GIF
+* PNG, JPEG, PDF, WEBP
 
 <b>※PDF入力はPNG出力のみ対応<br>
 ※GIF入力はPDF出力のみ対応</b>
