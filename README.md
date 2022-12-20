@@ -19,7 +19,7 @@
 ※GIF入力はPDF出力のみ対応</b>
 
 ## Download & Installation
-releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 )から"IMG-Converter.zip"をダウンロードして、解凍してください
+releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 )から"IMG-Converter.zip"をダウンロードして、解凍してくだいさ
 
 
 ## Usage
@@ -27,8 +27,7 @@ releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 
 2. 出力拡張子を選択する
 3. 入力ファイルを参照ボタンを押して選択する
 4. 出力ディレクトリを指定したい場合は,絶対パスで入力するか、参照ボタンを押して選択してください
-5. 出力ファイル名を指定したい場合は、"ファイル名"テキストボックスに入力してください。<br>
-<b>
+5. 出力ファイル名を指定したい場合は、"ファイル名"テキストボックスに入力してください。<br><b>
 ※未入力の場合は,入力ファイル名が用いられます。<br>
 ※単一ファイル時のみ利用できます。複数ファイル時は入力ファイル名がそれぞれ用いられます。</b>
 6. 2-5の設定が完了したら、実行ボタンを押す
