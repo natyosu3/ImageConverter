@@ -9,7 +9,7 @@
 ### Supported_extension
 #### 入力拡張子
 * PNG, JPEG, PDF, WEBP, GIF<br>
-<b>※各種大文字拡張子にも対応しています</b>
+<b>※各種小文字拡張子にも対応しています</b>
 <br>
 
 #### 出力拡張子
