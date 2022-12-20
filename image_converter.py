@@ -289,7 +289,7 @@ class MyApp(App):
         self.title = 'Image-Converter'
         # kvファイル読み込み
         Builder.load_file("img_conv.kv")
-        self.icon = 'main.ico'
+        self.icon = base_path + '\main.ico'
         return MyLayout()
 
 if __name__ == '__main__':
