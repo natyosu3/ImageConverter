@@ -19,7 +19,7 @@
 ※GIF入力はPDF出力のみ対応</b>
 
 ## Download & Installation
-releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 )から"IMG-Converter.zip"をダウンロードして、解凍してくだいさい
+releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 )から"IMG-Converter.zip"をダウンロードして、解凍してください
 
 
 ## Usage
