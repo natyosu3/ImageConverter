@@ -3,6 +3,8 @@
 このソフトは、PDFやPNG, JPEG, GIF等の画像ファイルを相互変換することができます。
 <br>
 単一ファイル、複数ファイル双方対応しています。
+<br>
+<b>※windowsのみ対応(win10, 11動作確認済み)</b>
 
 ### Supported_extension
 #### 入力拡張子
@@ -15,8 +17,8 @@
 <b>※PDF入力はPNG出力のみ対応<br>
 ※GIF入力はPDF出力のみ対応</b>
 
-## Download
-
+## Download & Installation
+releaseページ(https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0)から"IMG-Converter.zip"をダウンロードして、解凍してくだいさ
 
 
 ## Usage
