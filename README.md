@@ -20,7 +20,8 @@
 
 ## Download & Installation
 releaseページ( https://github.com/natyosu3/ImageConverter/releases/tag/v-1.0 )から"IMG-Converter.zip"をダウンロードして、解凍してくだいさ
-
+<br>
+<b>exe初回実行時にWindows Smart Screenから警告がされる場合は、詳細情報をクリックし、実行してください</b>
 
 ## Usage
 1. exeファイルを起動
